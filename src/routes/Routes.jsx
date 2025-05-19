@@ -8,19 +8,26 @@ import ProductDetails from "../pages/ProductDetails/ProductDetails";
 import OrderCarts from "../pages/OrdferCarts/OrderCarts";
 import Register from "../components/Register";
 import LogIn from "../components/LogIn";
+import PrivateRoute from "./PrivateRoute";
 const routes = (
   <>
     <Route element={<App />}>
       <Route path="/" element={<Home />} />
       <Route path="/products" element={<Products />} />
-      <Route path="/products/:id" element={<ProductDetails />} />
+      <Route
+        path="/products/:id"
+        element={
+          <PrivateRoute>
+            <ProductDetails />
+          </PrivateRoute>
+        }
+      />
       <Route path="/cart" element={<OrderCarts />} />
       <Route path="/about" element={<About />} />
       <Route path="/contact" element={<Contact />} />
       <Route path="/logIn" element={<LogIn />} />
       <Route path="/register" element={<Register />} />
     </Route>
-
   </>
 );
 

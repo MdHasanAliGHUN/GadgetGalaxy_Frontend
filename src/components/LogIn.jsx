@@ -3,12 +3,16 @@ import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { AuthContext } from "../context/AuthProvider";
-import { useNavigate } from "react-router";
+import { useNavigate, useLocation } from "react-router";
 
 const LogIn = () => {
   const { loginUser, logInWithGoogle } = useContext(AuthContext);
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
+
+  // আগের পেজের লোকেশন ধরে রাখা
+  const from = location.state?.from?.pathname || "/";
 
   const {
     register,
@@ -28,7 +32,7 @@ const LogIn = () => {
         });
         reset();
         setTimeout(() => {
-          navigate("/");
+          navigate(from, { replace: true });  // আগের পেজে নিয়ে যাবে
         }, 2000);
       })
       .catch((error) => {
@@ -43,13 +47,22 @@ const LogIn = () => {
   const handleGoogleLogin = () => {
     logInWithGoogle()
       .then((result) => {
-        console.log(result.message);
+        Swal.fire({
+          icon: "success",
+          title: "Login Successful",
+          showConfirmButton: false,
+          timer: 1500,
+        });
         setTimeout(() => {
-          navigate("/");
+          navigate(from, { replace: true });
         }, 1500);
       })
       .catch((error) => {
-        console.log(error);
+        Swal.fire({
+          icon: "error",
+          title: "Login Failed",
+          text: error.message || "Google login failed",
+        });
       });
   };
 
@@ -80,9 +93,7 @@ const LogIn = () => {
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
             {errors.email && (
-              <p className="text-red-500 text-sm mt-1">
-                {errors.email.message}
-              </p>
+              <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>
             )}
           </div>
 
@@ -114,9 +125,7 @@ const LogIn = () => {
               </button>
             </div>
             {errors.password && (
-              <p className="text-red-500 text-sm mt-1">
-                {errors.password.message}
-              </p>
+              <p className="text-red-500 text-sm mt-1">{errors.password.message}</p>
             )}
           </div>
 
