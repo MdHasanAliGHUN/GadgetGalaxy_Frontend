@@ -1,0 +1,20 @@
+@import "tailwindcss";
+
+@theme{
+    --font-primary : "Ibarra Real Nova", "serif";
+    --font-secondary :  "Playfair Display", "serif";
+}
+
+body {
+    font-family:  --font-primary ;
+}
+
+a.active hr{
+    display: block;
+}
+
+h1, h2, p {
+  font-family: var(--font-secondary);
+}
+
+
