@@ -59,8 +59,8 @@ const ProductProvider = ({ children }) => {
   //Filter state in here
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [selectedBrands, setSelectedBrands] = useState([]);
-  const [filterByPrice, setFilterByPrice] = useState(null)
-console.log(filterByPrice)
+  const [filterByPrice, setFilterByPrice] = useState(null);
+  console.log(filterByPrice);
   //All  Loading state in here
   const [allProductsLoading, setAllProductsLoading] = useState(true);
   const [popularProductsLoading, setPopularProductsLoading] = useState(true);
@@ -69,7 +69,9 @@ console.log(filterByPrice)
   useEffect(() => {
     const fetchAllProducts = async () => {
       try {
-        const res = await fetch("http://localhost:5000/products");
+        const res = await fetch(
+          "https://gadget-galaxy-backend-seven.vercel.app/products"
+        );
         const data = await res.json();
 
         // 2 second delay
@@ -90,7 +92,9 @@ console.log(filterByPrice)
   useEffect(() => {
     const fetchPopularProduct = async () => {
       try {
-        const res = await fetch("http://localhost:5000/products/popular");
+        const res = await fetch(
+          "https://gadget-galaxy-backend-seven.vercel.app/products/popular"
+        );
         const data = await res.json();
         setTimeout(() => {
           setPopularProducts(data.popularProducts);
