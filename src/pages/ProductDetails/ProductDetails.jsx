@@ -23,7 +23,7 @@ const ProductDetails = () => {
           setTimeout(() => {
             setProduct(data.product); // Set product after delay
             setProductDetailseLoading(false);
-          }, 2000);
+          }, 1000);
         }
       } catch (error) {
         console.error("Error fetching product:", error);
